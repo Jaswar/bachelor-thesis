@@ -3,6 +3,7 @@ import json
 import random
 import shutil
 
+
 def contains_all_classes(data_s, all_classes):
     contained_classes = set()
     for video_name, video_data in data_s.items():
@@ -32,9 +33,10 @@ def save(out_path, dataset, data_s, data_test, annotations, features_path):
     with open(out_annotations_path, 'w') as f:
         f.write(json.dumps(annotations))
 
+    prefix = 'v_' if dataset == 'anet_1.3' else ''
     # Copy features
     for video_name in data_s:
-        file_name = f'{video_name}.npy'
+        file_name = prefix + f'{video_name}.npy'
         original = os.path.join(features_path, file_name)
         copy = os.path.join(out_features_path, file_name)
         shutil.copy(original, copy)
@@ -67,17 +69,18 @@ def main(p, in_path, out_path, dataset, train, test):
         else:
             print(f'Unknown split for video {video_name}')
 
-    print(f'Looking for a split for {p=}')
+    print(f'Looking for a split for p={p}')
     data_s = sample(p, data_train)
     while not contains_all_classes(data_s, all_classes):
         data_s = sample(p, data_train)
-    print(f'Found split for {p=}')
+    print(f'Found split for p={p} [{len(data_s)} videos]')
 
     print('Moving sampled images to a separate folder')
     save(out_path, dataset, data_s, data_test, annotations, features_path)
     print('Finished sampling')
 
+
 if __name__ == '__main__':
-    main(0.2, '../datasets', '../out_datasets', 'thumos', 'validation', 'test')
+    main(0.2, '../../datasets', '../../out_datasets', 'anet_1.3', 'training', 'validation')
 
 
