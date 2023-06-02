@@ -36,20 +36,24 @@ def extract_run(run):
 
 
 if __name__ == '__main__':
-    ps = ['0_1', '0_2', '0_4', '0_6', '0_8']
-    parsed = {'0.30': {}, '0.40': {}, '0.50': {}, '0.60': {}, '0.70': {}, 'average': {}}
+    ps = ['0_1', '0_2', '0_4', '0_6', '0_8', '1_0']
+    parsed = {}
     for p in ps:
-        results = {'0.30': [], '0.40': [], '0.50': [], '0.60': [], '0.70': [], 'average': []}
-        with open(f'results/thumos_p_{p}.txt', 'r') as f:
+        results = {}
+        with open(f'results/anet_p_{p}.txt', 'r') as f:
             content = f.read()
         runs = content.split('\n\n')
         for run in runs:
             mapped = extract_run(run)
             for tIoU, mAP in mapped.items():
+                if tIoU not in results:
+                    results[tIoU] = []
                 results[tIoU].append(mAP)
         for tIoU, mAPs in results.items():
             mean = round(statistics.mean(mAPs), 2)
             std = round(statistics.stdev(mAPs), 2)
+            if tIoU not in parsed:
+                parsed[tIoU] = {}
             parsed[tIoU][p] = (mean, std)
 
     print(parsed)
