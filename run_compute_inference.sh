@@ -22,7 +22,7 @@ rm -rf ./results/compute_inference/*
 srun python ./compute_macs_test.py --min=200 --max=4000 --increment=200
 for i in {0..4}
 do
-  mkdir "./results/compute_inference/compute_$i"
+  mkdir "./results/compute/compute_$i"
   job_id=$(sbatch --parsable python ./compute_memory_time_test.py --min=200 --max=4000 --increment=200 --iteration=$i)
 
 	sleep 5
