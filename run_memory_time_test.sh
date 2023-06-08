@@ -18,6 +18,6 @@ source "$(conda info --base)/etc/profile.d/conda.sh"
 
 conda activate action-former
 
-srun python ./compute_memory_time_test.py --min=200 --max=4000 --increment=200 --iteration=$1
+srun python ./compute_memory_time_test.py --min=200 --max=3000 --increment=200 --iteration=$1
 
 conda deactivate

@@ -18,6 +18,6 @@ source "$(conda info --base)/etc/profile.d/conda.sh"
 
 conda activate action-former
 
-srun python ./compute_macs_test.py --min=200 --max=4000 --increment=200
+srun python ./compute_macs_test.py --min=200 --max=3000 --increment=200
 
 conda deactivate
