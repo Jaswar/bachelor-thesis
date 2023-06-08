@@ -119,6 +119,7 @@ def main(args):
         'early_stop_epochs',
         cfg['opt']['epochs'] + cfg['opt']['warmup_epochs']
     )
+    start = time.time()
     for epoch in range(args.start_epoch, max_epochs):
         # train for one epoch
         train_one_epoch(
@@ -153,6 +154,7 @@ def main(args):
                 file_name='epoch_{:03d}.pth.tar'.format(epoch + 1)
             )
 
+    print(f'Time taken to train: {time.time() - start}')
     # wrap up
     tb_writer.close()
     print("All done!")

@@ -1,7 +1,7 @@
 import torch
 import torch.nn as nn
 import torch.utils.data
-
+import os
 from libs.core import load_config
 from libs.modeling import make_meta_arch
 
@@ -28,14 +28,15 @@ def load_model(config_path, checkpoint_path):
     return model
 
 
-def construct_sample(feature_length, fps, feature_stride, num_frames, embedding_size=2048):
+def construct_sample(feature_length, fps, feature_stride, num_frames, embedding_size=2048, features=None):
     # the inverse of: num_features = (fps * duration - num_frames) // feature_stride + 1
     duration = float((feature_length - 1) * feature_stride + num_frames) / fps
-    random_features = torch.rand((embedding_size, feature_length))
+    if features is None:
+        features = torch.rand((embedding_size, feature_length))
 
     video_list = [{
         'video_id': 'random',
-        'feats': random_features,
+        'feats': features,
         'fps': fps,
         'duration': duration,
         'feat_stride': feature_stride,
@@ -43,4 +44,7 @@ def construct_sample(feature_length, fps, feature_stride, num_frames, embedding_
     }]
 
     return video_list
+
+def run_command(command):
+    os.system(f'conda run -n action-former {command}')
 

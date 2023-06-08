@@ -17,7 +17,7 @@ def process(filename):
             results[feat_len].append(metric)
     averaged_results = {}
     for feat_len, metric in results.items():
-        averaged_results[feat_len] = (np.mean(metric), np.std(metric))
+        averaged_results[feat_len] = (round(np.mean(metric), 2), round(np.std(metric), 2))
     return averaged_results
 
 if __name__ == '__main__':
@@ -28,7 +28,7 @@ if __name__ == '__main__':
     for line in lines:
         split = line.split(',')
         feat_len, gmacs = int(split[0]), float(split[1])
-        macs_results[feat_len] = gmacs
+        macs_results[feat_len] = round(gmacs, 2)
 
     time_results = process('time.csv')
     memory_results = process('memory.csv')
