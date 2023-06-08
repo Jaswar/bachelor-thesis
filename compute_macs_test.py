@@ -4,7 +4,7 @@ from compute_common import run_command
 
 def main(args):
     video_lengths = list(range(args.min, args.max + 1, args.increment))
-    for video_length in enumerate(video_lengths):
+    for video_length in video_lengths:
         print(f'Running MACs counter for video_length={video_length}')
         run_command(f'python measure_macs.py --length={video_length} --output=results/compute/macs.csv')
 
