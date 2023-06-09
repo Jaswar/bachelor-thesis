@@ -8,6 +8,8 @@ def main(args):
         torch.manual_seed(args.seed)
     model = load_model('configs/thumos_i3d.yaml', 'ckpt/thumos_model.tar')
     video_list = construct_sample(args.length, 30, 4, 16)
+    # As a warmup
+    model(video_list)
 
     start = time.time()
     model(video_list)

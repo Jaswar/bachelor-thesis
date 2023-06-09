@@ -16,7 +16,7 @@ def load_model(config_path, checkpoint_path):
     # load ckpt, reset epoch / best rmse
     checkpoint = torch.load(
         checkpoint_path,
-        map_location=torch.device(cfg['devices'][0])
+        map_location=lambda storage, loc: storage.cuda(cfg['devices'][0])
     )
     # load ema model instead
     # print("Loading from EMA model ...")
@@ -28,11 +28,13 @@ def load_model(config_path, checkpoint_path):
     return model
 
 
-def construct_sample(feature_length, fps, feature_stride, num_frames, embedding_size=2048, features=None):
+def construct_sample(feature_length, fps, feature_stride, num_frames, embedding_size=2048, features=None, device='cuda:0'):
     # the inverse of: num_features = (fps * duration - num_frames) // feature_stride + 1
     duration = float((feature_length - 1) * feature_stride + num_frames) / fps
     if features is None:
         features = torch.rand((embedding_size, feature_length))
+
+    features.to(device)
 
     video_list = [{
         'video_id': 'random',
