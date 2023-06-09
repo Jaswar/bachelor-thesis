@@ -8,6 +8,7 @@
 #SBATCH --gpus-per-task=1
 #SBATCH --mem-per-cpu=16G
 #SBATCH --account=Education-EEMCS-Courses-CSE3000
+#SBATCH --output=compute_training_anet_%j.out
 
 module load 2022r2
 module load cuda/11.7
