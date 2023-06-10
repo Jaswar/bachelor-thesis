@@ -21,7 +21,7 @@ conda activate action-former
 for i in {1..5}
 do
 	rm -rf ./ckpt/thumos_i3d_reproduce/*
-	srun python ./train.py ./configs/thumos_i3d.yaml --output reproduce
-	srun python ./eval.py ./configs/thumos_i3d.yaml ./ckpt/thumos_i3d_reproduce
+	srun python ./train.py ./configs/thumos_i3d_training.yaml --output reproduce
+	srun python ./eval.py ./configs/thumos_i3d_training.yaml ./ckpt/thumos_i3d_training_reproduce
 done
 conda deactivate

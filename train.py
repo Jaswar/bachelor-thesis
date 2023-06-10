@@ -51,7 +51,11 @@ def main(args):
     tb_writer = SummaryWriter(os.path.join(ckpt_folder, 'logs'))
 
     # fix the random seeds (this will fix everything)
-    rng_generator = fix_random_seed(cfg['init_rand_seed'], include_cuda=True)
+    seed = cfg['init_random_seed']
+    if seed == -1:
+        seed = torch.initial_seed()
+        print(f'Using random seed of {seed}')
+    rng_generator = fix_random_seed(seed, include_cuda=True)
 
     # re-scale learning rate / # workers based on number of GPUs
     cfg['opt']["learning_rate"] *= len(cfg['devices'])
@@ -153,8 +157,11 @@ def main(args):
                 file_folder=ckpt_folder,
                 file_name='epoch_{:03d}.pth.tar'.format(epoch + 1)
             )
+    time_taken = time.time() - start
+    print(f'Time taken to train: {time_taken}')
+    with open('output.csv', 'a') as f:
+        f.writelines([f'{time_taken}\n'])
 
-    print(f'Time taken to train: {time.time() - start}')
     # wrap up
     tb_writer.close()
     print("All done!")

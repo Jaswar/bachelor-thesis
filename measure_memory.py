@@ -8,7 +8,7 @@ import torch
 def main(args):
     if args.seed != -1:
         torch.manual_seed(args.seed)
-    model = load_model('configs/thumos_i3d.yaml', 'ckpt/thumos_model.tar')
+    model = load_model('configs/thumos_i3d_inference.yaml', 'ckpt/thumos_model.tar')
     video_list = construct_sample(args.length, 30, 4, 16)
 
     model(video_list)
