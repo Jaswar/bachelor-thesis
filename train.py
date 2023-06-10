@@ -51,10 +51,10 @@ def main(args):
     tb_writer = SummaryWriter(os.path.join(ckpt_folder, 'logs'))
 
     # fix the random seeds (this will fix everything)
-    seed = cfg['init_random_seed']
-    if seed == -1:
-        seed = torch.initial_seed()
-        print(f'Using random seed of {seed}')
+    seed = cfg['init_rand_seed']
+    if args.seed != 0:
+        seed = args.seed
+        print(f'Overwriting the seed to {seed}')
     rng_generator = fix_random_seed(seed, include_cuda=True)
 
     # re-scale learning rate / # workers based on number of GPUs
@@ -183,5 +183,6 @@ if __name__ == '__main__':
                         help='name of exp folder (default: none)')
     parser.add_argument('--resume', default='', type=str, metavar='PATH',
                         help='path to a checkpoint (default: none)')
+    parser.add_argument('--seed', default=0, type=int, help='Overwrite the seed for training')
     args = parser.parse_args()
     main(args)

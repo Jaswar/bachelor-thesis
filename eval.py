@@ -47,7 +47,7 @@ def main(args):
 
     """1. fix all randomness"""
     # fix the random seeds (this will fix everything)
-    _ = fix_random_seed(0, include_cuda=True)
+    _ = fix_random_seed(args.seed, include_cuda=True)
 
     """2. create dataset / dataloader"""
     val_dataset = make_dataset(
@@ -123,5 +123,6 @@ if __name__ == '__main__':
                         help='Only save the ouputs without evaluation (e.g., for test set)')
     parser.add_argument('-p', '--print-freq', default=10, type=int,
                         help='print frequency (default: 10 iterations)')
+    parser.add_argument('--seed', default=0, type=int, help='Overwrite the seed for inference')
     args = parser.parse_args()
     main(args)
