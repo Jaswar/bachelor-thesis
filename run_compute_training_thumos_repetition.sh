@@ -18,10 +18,12 @@ unset CONDA_SHLVL
 source "$(conda info --base)/etc/profile.d/conda.sh"
 
 conda activate action-former
-for i in {1..5}
+
+seeds=(357136044 546248239 71714933 626093760 588848963)
+for seed in ${seeds[@]}
 do
 	rm -rf ./ckpt/thumos_i3d_reproduce/*
-	srun python ./train.py ./configs/thumos_i3d_training.yaml --output reproduce
-	srun python ./eval.py ./configs/thumos_i3d_training.yaml ./ckpt/thumos_i3d_training_reproduce
+	srun python ./train.py ./configs/thumos_i3d_training.yaml --output reproduce --seed=$seed
+	srun python ./eval.py ./configs/thumos_i3d_training.yaml ./ckpt/thumos_i3d_training_reproduce --seed=$seed
 done
 conda deactivate
