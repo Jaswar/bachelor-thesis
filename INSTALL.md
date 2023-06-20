@@ -1,5 +1,7 @@
 # Requirements
 
+Requirements based on [ActionFormer](https://github.com/happyharrycn/actionformer_release).
+
 - Linux
 - Python 3.5+
 - PyTorch 1.11
@@ -11,6 +13,7 @@
 - Pandas
 - h5py
 - joblib
+- fvcore
 
 # Compilation
 
