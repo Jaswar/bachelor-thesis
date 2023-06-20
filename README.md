@@ -19,6 +19,16 @@ GPU partition and the `miniconda3`, `2022r2`, and `cuda/11.7` modules.
 Before any experiments, you should follow the instructions from the ActionFormer repository on downloading datasets. 
 Instead of putting the datasets in `./data` folder, please put them in a different folder, for example `./datasets`.
 
+Although the data should not be in a `./data` folder. Please still create one and make placeholders for THUMOS and ActivityNet
+datasets using:
+```shell
+mkdir data
+mkdir data/thumos
+mkdir data/anet_1.3
+```
+The above step is important as later we will make symbolic links from these dataset paths to paths where the data
+is actually located.
+
 The experiments also assume the existence of a folder `./results`. You should create that folder using:
 ```shell
 mkdir results
@@ -106,7 +116,7 @@ with no changes:
 ```shell
 ln -s ./datasets/thumos ./data/thumos
 ```
-2. In `run_compute_training.sh` make sure the script `run_compute_training_thumos_repetition.sh` is launched.
+2. In `run_compute_training.sh` make sure the script `run_compute_training_thumos_repetition.sh` is being launched.
 3. Run `run_compute_training.sh` as a shell script, not with sbatch:
 ```shell
 chmod +x run_compute_training.sh
@@ -121,7 +131,7 @@ with no changes:
 ```shell
 ln -s ./datasets/anet_1.3 ./data/anet_1.3
 ```
-2. In `run_compute_training.sh` make sure the script `run_compute_training_anet_repetition.sh` is launched.
+2. In `run_compute_training.sh` make sure the script `run_compute_training_anet_repetition.sh` is being launched.
 3. Run `run_compute_training.sh` as a shell script (**not** with `sbatch`):
 ```shell
 chmod +x run_compute_training.sh
