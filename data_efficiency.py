@@ -2,6 +2,7 @@ import os
 import json
 import random
 import shutil
+import time
 
 
 def contains_all_classes(data_s, all_classes):
@@ -24,6 +25,8 @@ def save(out_path, dataset, data_s, data_test, annotations, features_path):
     out_annotations_path = os.path.join(out_path, dataset, 'annotations',
                                         'thumos14.json' if dataset == 'thumos' else 'anet1.3_i3d_filtered.json')
     out_features_path = os.path.join(out_path, dataset, 'i3d_features')
+    with open(f'splits_{int(time.time())}.txt', 'w') as f:
+        f.write('\n'.join(data_s.keys()))
 
     # Construct annotations
     annotations['database'] = data_s
@@ -81,6 +84,6 @@ def main(p, in_path, out_path, dataset, train, test):
 
 
 if __name__ == '__main__':
-    main(0.2, '../../datasets', '../../out_datasets', 'anet_1.3', 'training', 'validation')
+    main(0.1, '/scratch/jwarchocki/datasets', '/scratch/jwarchocki/out_datasets', 'thumos', 'validation', 'test')
 
 
