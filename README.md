@@ -19,6 +19,10 @@ GPU partition and the `miniconda3`, `2022r2`, and `cuda/11.7` modules.
 Before any experiments, you should follow the instructions from the ActionFormer repository on downloading datasets. 
 Instead of putting the datasets in `./data` folder, please put them in a different folder, for example `./datasets`.
 
+The experiments also assume the existence of a folder `./results`. You should create that folder using:
+```shell
+mkdir results
+```
 
 ## Data efficiency
 
@@ -30,6 +34,9 @@ TBD when I get the splits
 
 The script works by copying the sampled features, the test features, and the annotations to another place. As the first step,
 you should thus create a directory `out_datasets` that will hold the copied datasets. This can be done with `mkdir out_datasets`. 
+
+Note that the following procedures are only for one value of `p`. The steps below should be followed for each 
+value of `p` that is meant to be tested.
 
 THUMOS'14:
 1. Modify the call to the main method in the `data_efficiency.py` file. First arguments is `p/100%` that should be tested for.
@@ -71,17 +78,21 @@ mkdir i3d_features
 cp ./data/anet_1.3/annotations/cuhk_val_simp_share.json <path to out_datasets>/out_datasets/anet_1.3
 ```
 
-3. Create symbolic links from `./data/anet_1.3` to `out_datasets/anet_1.3`. This will allow us to use the default ActivityNet I3D configuration with no changes.
+4. Create symbolic links from `./data/anet_1.3` to `out_datasets/anet_1.3`. This will allow us to use the default ActivityNet I3D configuration with no changes.
 ```shell
 ln -s <path to out_datasets>/out_datasets/anet_1.3 ./data/anet_1.3
 ```
 
-4. Run the `run_data_anet.sh` script. The results can be found in the SLURM outputs.
+5. Run the `run_data_anet.sh` script. The results can be found in the SLURM outputs.
 ```shell
 sbatch run_data_anet.sh
 ```
 
 ## Computational efficiency: Training
+
+As mentioned in the paper, each repetition of the experiment uses the same seeds. The exact
+values of these seeds can be found in both `run_cmpute_training_thumos_repetition.sh` and `run_compute_training_anet_repetition.sh`. Those
+seeds were obtained by running the `generate_training_seeds.py` script.
 
 ### Full results
 
@@ -118,3 +129,25 @@ chmod +x run_compute_training.sh
 ```
 This will run the script in the background. The results can be found in the SLURM outputs of the jobs that are launched
 by the script.
+
+## Computational efficiency: Inference
+
+As mentioned in the paper, each repetition of the inference time experiment uses the same seeds. The exact values of these seeds
+can be found by printing the `seeds` tensor in `compute_time_test.py` and running the experiments.
+
+### Full results
+
+The results can be found in the `results/compute_inference` folder.
+
+### Run experiments
+
+1. In the `./results` folder create a subfolder called `compute`:
+```shell
+mkdir results/compute
+```
+2. Run the `run_compute_inference.sh` script using:
+```shell
+chmod +x run_compute_inference.sh
+./run_compute_inference.sh &
+```
+The results will be visible in the `results/compute` folder.
