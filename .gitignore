@@ -1,6 +1,7 @@
 .idea/
 ./data
-ckpt/
+ckpt/*
+!ckpt/README.md
 pretrained/
 exp/
 libs/utils/dist
