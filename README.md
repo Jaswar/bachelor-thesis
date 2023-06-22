@@ -106,7 +106,7 @@ seeds were obtained by running the `generate_training_seeds.py` script.
 
 ### Full results
 
-TBD when I finish running ActivityNet
+The full results can be seen in the `./results/compute_training` folder.
 
 ### Run experiments
 
@@ -151,11 +151,13 @@ The results can be found in the `results/compute_inference` folder.
 
 ### Run experiments
 
-1. In the `./results` folder create a subfolder called `compute`:
+1. Obtain the model trained on the THUMOS'14 dataset, name it `thumos_model.tar` and place it in the `./ckpt` folder.
+See the README.md file in the `./ckpt` folder for more details.
+2. In the `./results` folder create a subfolder called `compute`:
 ```shell
 mkdir results/compute
 ```
-2. Run the `run_compute_inference.sh` script using:
+3. Run the `run_compute_inference.sh` script using:
 ```shell
 chmod +x run_compute_inference.sh
 ./run_compute_inference.sh &
