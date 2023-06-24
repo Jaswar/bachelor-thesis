@@ -38,7 +38,15 @@ mkdir results
 
 ### Full results
 
-TBD when I get the splits
+The results can be found in the `./results/data` folder. The exact splits D_s can be seen in that folder alongside
+the raw SLURM outputs.
+
+To obtain the exact values of figures 2a and 2b, one needs to run the script `parse_data_results.py`. For that, 
+in the `parse_data_results.py` script, the correct dataset (`thumos` or `anet_1.3`) needs to be selected and the 
+file needs to be run using:
+```shell
+python parse_data_results.py
+```
 
 ### Run experiments
 
@@ -106,7 +114,8 @@ seeds were obtained by running the `generate_training_seeds.py` script.
 
 ### Full results
 
-The full results can be seen in the `./results/compute_training` folder.
+The full results can be seen in the `./results/compute_training` folder. The raw SLURM outputs 
+are visible alongside training times/achieved mAP extracted from these outputs. 
 
 ### Run experiments
 
@@ -147,7 +156,10 @@ can be found by printing the `seeds` tensor in `compute_time_test.py` and runnin
 
 ### Full results
 
-The results can be found in the `results/compute_inference` folder.
+The results can be found in the `results/compute_inference` folder. To obtain the exact values of figures 3a and 3b, the following should be run:
+```shell
+python parse_compute_results.py
+```
 
 ### Run experiments
 

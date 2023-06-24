@@ -4,7 +4,7 @@ import numpy as np
 def process(filename):
     results = {}
     for i in range(5):
-        path = os.path.join(f'results/compute/compute_{i}', filename)
+        path = os.path.join(f'results/compute_inference/compute_{i}', filename)
         with open(path, 'r') as f:
             content = f.read().split('\n')
             lines = [line for line in content if line != '']
@@ -21,7 +21,7 @@ def process(filename):
     return averaged_results
 
 if __name__ == '__main__':
-    with open('results/compute/macs.csv', 'r') as f:
+    with open('results/compute_inference/macs.csv', 'r') as f:
         content = f.read().split('\n')
         lines = [line for line in content if line != '']
     macs_results = {}
@@ -30,8 +30,16 @@ if __name__ == '__main__':
         feat_len, gmacs = int(split[0]), float(split[1])
         macs_results[feat_len] = round(gmacs, 2)
 
+    with open('results/compute_inference/memory.csv', 'r') as f:
+        content = f.read().split('\n')
+        lines = [line for line in content if line != '']
+    memory_results = {}
+    for line in lines:
+        split = line.split(',')
+        feat_len, memory = int(split[0]), float(split[1])
+        memory_results[feat_len] = round(memory, 2)
+
     time_results = process('time.csv')
-    memory_results = process('memory.csv')
     print(time_results)
     print(memory_results)
     print(macs_results)
@@ -73,7 +81,7 @@ if __name__ == '__main__':
 
     string_memory = ''
     for feature_length, memory in memory_results.items():
-        string_memory += f'({feature_length}, {memory[0]})'
+        string_memory += f'({feature_length}, {memory})'
     print(string_memory)
     print()
 
