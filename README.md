@@ -8,6 +8,8 @@ experiments on your own. Note that the scripts below were designed to work on th
 (such as module loading) will need to be done to make the scripts work on different SLURM clusters. Designing scripts
 to run on non-SLURM machine can be done based on the scripts in this repository.
 
+This work was done as part of the [CSE3000 Research Project](https://github.com/TU-Delft-CSE/Research-Project) course at [Delft University of Technology](https://github.com/TU-Delft-CSE).
+
 ## Installation
 
 The preferred way to run these experiments is using a Miniconda environment named `action-former`.
